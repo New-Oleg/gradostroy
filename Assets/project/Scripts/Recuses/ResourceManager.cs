@@ -21,4 +21,5 @@ public class ResourceManager : MonoBehaviour, IGiveReward
         Debug.Log($"ResourceManager: Gave {amount} {rt} (totals: P{peoples} F{food} E{electricity} S{science})");
         // «десь можно подн€ть событие на UI и т.д.
     }
+
 }

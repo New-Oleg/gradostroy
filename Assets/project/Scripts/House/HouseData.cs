@@ -1,18 +1,20 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class HouseData
 {
-    public string id;         // уникальный id экземпл€ра, напр. "house_123"
+    public string id;         // уникальный id экземпл€ра
+    public Transform transform; // позици€ объектта на сцене 
     public string buildingId; // id вида здани€ в BuildingDatabaseSO
-    public string displayName; // опционально: удобное им€ дл€ UI
+    public bool iRedy;
 
     public HouseData() { }
 
-    public HouseData(string id, string buildingId, string displayName = null)
+    public HouseData(string id, string buildingId, Transform transform)
     {
         this.id = id;
+        this.transform = transform;
         this.buildingId = buildingId;
-        this.displayName = displayName;
     }
 }

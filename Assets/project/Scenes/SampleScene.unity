@@ -723,7 +723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   houses: []
   buildingDatabase: {fileID: 11400000, guid: b858a6cb406174d4d9902bb7d1877259, type: 2}
-  checkInterval: 2
+  checkInterval: 1
 --- !u!1 &1347484793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,14 +1002,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4740235070934611309, guid: 97bd9546088bf52468baa225aa35ea53, type: 3}
-      propertyPath: tilemap
-      value: 
-      objectReference: {fileID: 1149126761}
-    - target: {fileID: 4740235070934611309, guid: 97bd9546088bf52468baa225aa35ea53, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 330585545}
     - target: {fileID: 7805524587524161686, guid: 97bd9546088bf52468baa225aa35ea53, type: 3}
       propertyPath: m_Enabled
       value: 0

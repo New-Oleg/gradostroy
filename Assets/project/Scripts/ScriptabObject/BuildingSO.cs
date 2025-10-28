@@ -12,8 +12,8 @@ public class BuildingSO : ScriptableObject
 
     [Header("Reward")]
     public RecursType resourceType;   // какой ресурс выдаёт
-    public int rewardAmount = 1;      // фиксированное количество при выдаче
-    public double cooldownHours = 4;  // фиксированный интервал в часах
+    public int rewardAmount;      // фиксированное количество при выдаче
+    public double cooldownHours;  // фиксированный интервал в часах
 
     public TimeSpan Cooldown => TimeSpan.FromHours(Math.Max(0.0, cooldownHours));
 }

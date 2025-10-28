@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using YG;
 
 public class RewardManager : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class RewardManager : MonoBehaviour
     [SerializeField] private List<HouseData> houses = new List<HouseData>();
 
     [Header("Data")]
-    [SerializeField] private BuildingDatabaseSO buildingDatabase; // assign in inspector
+    [SerializeField] private BuildingDatabaseSO buildingDatabase; 
 
     [Header("Settings")]
     [SerializeField] private float checkInterval = 1f; // seconds
@@ -19,6 +19,7 @@ public class RewardManager : MonoBehaviour
     private IGiveReward rewardReceiver;
     private Func<DateTime> nowProvider = () => DateTime.UtcNow;
 
+    public static event Action<HouseData> CanTackeRevard;
     private void Awake()
     {
         // Try to get IGiveReward on same GameObject (optional)
@@ -30,6 +31,8 @@ public class RewardManager : MonoBehaviour
             Debug.LogError("RewardManager: BuildingDatabaseSO is not assigned!");
 
         InitializeServices();
+
+        InvokeRepeating(nameof(CheckHouse), checkInterval, checkInterval);
     }
 
     // Call manually to provide your IGiveReward and optional time provider (e.g. server time)
@@ -74,7 +77,7 @@ public class RewardManager : MonoBehaviour
                 so.resourceType,
                 so.rewardAmount,
                 so.Cooldown,
-                rewardReceiver ?? throw new InvalidOperationException("IGiveReward not provided to RewardManager"),
+                rewardReceiver,
                 nowProvider
             );
 
@@ -82,33 +85,31 @@ public class RewardManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void CheckHouse()
     {
         if (services.Count == 0) return;
-        timer += Time.deltaTime;
-        if (timer < checkInterval) return;
-        timer = 0f;
-
-        // Простой обход всех сервисов. При большом N можно оптимизировать (пакетами / очередь).
         foreach (var kv in services)
         {
             var svc = kv.Value;
             if (svc.CanClaim())
             {
-                svc.TryClaim();
-                Debug.Log($"[RewardManager] House {svc.HouseId} auto-claimed.");
+                HouseData h = houses.Find(h => h.id == svc.HouseId);
+                if(!h.iRedy){
+                    h.iRedy = true;
+                    CanTackeRevard.Invoke(h);
+                }
             }
         }
     }
 
     // UI / manual calls
-    public bool TryClaimHouse(string houseId)
+    public void TryClaimHouse(string houseId)
     {
         if (services.TryGetValue(houseId, out var svc))
-            return svc.TryClaim();
+             svc.TryClaim();
 
         Debug.LogWarning($"TryClaimHouse: house '{houseId}' not found.");
-        return false;
+        return;
     }
 
     public TimeSpan GetTimeLeft(string houseId)
@@ -124,13 +125,16 @@ public class RewardManager : MonoBehaviour
         // Генерируем уникальный id для конкретного экземпляра
         string instanceId = Guid.NewGuid().ToString();
 
-        Instantiate(so.BuildPref);
+        GameObject h = Instantiate(so.BuildPref);
 
-        // Создаём HouseData для сериализуемого списка (сохраняется в houses)
-        var houseData = new HouseData(instanceId, so.id, so.displayName);
+        if(YG2.envir.isDesktop)
+            h.AddComponent<MouseMovmentComponent>();
+
+        // Создаём HouseData (сохраняется в houses)
+        var houseData = new HouseData(instanceId, so.id, h.transform);
         houses.Add(houseData);
 
-        // Создаём RewardService на основе данных из ScriptableObject
+        // Создаём RewardService
         var service = new RewardService(
             instanceId,
             so.resourceType,

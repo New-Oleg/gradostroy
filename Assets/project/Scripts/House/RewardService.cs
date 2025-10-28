@@ -16,11 +16,11 @@ public class RewardService
 
     public RewardService(string houseId, RecursType resourceType, int rewardAmount, TimeSpan cooldown, IGiveReward receiver, Func<DateTime> nowProvider = null)
     {
-        HouseId = houseId ?? throw new ArgumentNullException(nameof(houseId));
+        HouseId = houseId;
         this.resourceType = resourceType;
         this.rewardAmount = rewardAmount;
         this.cooldown = cooldown;
-        this.receiver = receiver ?? throw new ArgumentNullException(nameof(receiver));
+        this.receiver = receiver;
         this.nowProvider = nowProvider ?? (() => DateTime.UtcNow);
         this.prefsKey = $"House_{HouseId}_LastReward";
     }
