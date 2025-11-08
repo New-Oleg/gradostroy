@@ -10,6 +10,10 @@ public class BuildingSO : ScriptableObject
     public string id;                 // уникальный id, например "house_small", "factory_1"
     public string displayName;        // читаемое имя для UI
 
+    [Header("Building")]
+    public double BuildingTime; // время строительства 
+    public GameObject BuildingPref; // префаб строительства сдания
+
     [Header("Reward")]
     public RecursType resourceType;   // какой ресурс выдаёт
     public int rewardAmount;      // фиксированное количество при выдаче

@@ -8,18 +8,17 @@ public class UIController : MonoBehaviour
     private GameObject iconReward;
 
     [SerializeField]
-    private RewardManager rewardManager;
+    private HouseManager rewardManager;
 
     private void OnEnable()
     {
-        RewardManager.CanTackeRevard += SpawnRewardButton;
+        HouseManager.CanTakeReward += SpawnRewardButton;
     }
 
     private void SpawnRewardButton(HouseData houseData)
     {
         Button b = Instantiate(iconReward, houseData.transform.position + (Vector3.up * 5), transform.rotation, transform)
         .GetComponent<Button>();
-
         b.onClick.AddListener(() => rewardManager.TryClaimHouse(houseData.id));
         b.onClick.AddListener(() => houseData.iRedy = false);
         b.onClick.AddListener(() => Destroy(b.gameObject));

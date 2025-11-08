@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using Enums;
 using UnityEngine;
 
@@ -12,7 +12,14 @@ public class RewardService
     private int rewardAmount;
     private TimeSpan cooldown;
 
+    private bool timerStarted = false;
+    private DateTime startTime;
+    private bool wasReadyLastFrame = false;
+
     public string HouseId { get; }
+
+    //  РЎРѕР±С‹С‚РёРµ, РєРѕРіРґР° РјРѕР¶РЅРѕ РІС‹РґР°С‚СЊ РЅР°РіСЂР°РґСѓ
+    public event Action<string> OnRewardReady;
 
     public RewardService(string houseId, RecursType resourceType, int rewardAmount, TimeSpan cooldown, IGiveReward receiver, Func<DateTime> nowProvider = null)
     {
@@ -29,24 +36,36 @@ public class RewardService
     {
         if (!PlayerPrefs.HasKey(prefsKey)) return DateTime.MinValue;
         if (long.TryParse(PlayerPrefs.GetString(prefsKey), out long ticks))
-        return new DateTime(ticks, DateTimeKind.Utc);
+            return new DateTime(ticks, DateTimeKind.Utc);
         return DateTime.MinValue;
     }
 
     private void SetLast(DateTime utc)
     {
-       PlayerPrefs.SetString(prefsKey, utc.ToUniversalTime().Ticks.ToString());
-       PlayerPrefs.Save();
+        PlayerPrefs.SetString(prefsKey, utc.ToUniversalTime().Ticks.ToString());
+        PlayerPrefs.Save();
     }
 
     public bool CanClaim()
     {
-        return (nowProvider().ToUniversalTime() - GetLast()) >= cooldown;
+        if (!timerStarted) return false;
+
+        var last = GetLast();
+        if (last == DateTime.MinValue)
+            last = startTime;
+
+        return (nowProvider().ToUniversalTime() - last) >= cooldown;
     }
 
     public TimeSpan TimeLeft()
     {
-        var left = cooldown - (nowProvider().ToUniversalTime() - GetLast());
+        if (!timerStarted) return cooldown;
+
+        var last = GetLast();
+        if (last == DateTime.MinValue)
+            last = startTime;
+
+        var left = cooldown - (nowProvider().ToUniversalTime() - last);
         return left > TimeSpan.Zero ? left : TimeSpan.Zero;
     }
 
@@ -55,19 +74,52 @@ public class RewardService
         if (!CanClaim()) return false;
         receiver.GiveReward(resourceType, rewardAmount);
         SetLast(nowProvider().ToUniversalTime());
+        wasReadyLastFrame = false; // СЃР±СЂР°СЃС‹РІР°РµРј С„Р»Р°Рі РіРѕС‚РѕРІРЅРѕСЃС‚Рё
         return true;
     }
 
-    // В случае, если нужно поменять параметры (редко нужно, но полезно)
+    public void StartTimer()
+    {
+        startTime = nowProvider().ToUniversalTime();
+        timerStarted = true;
+        wasReadyLastFrame = false;
+    }
+
+    public void StapTimer()
+    {
+        timerStarted = false;
+        wasReadyLastFrame = false;
+    }
+
+    public bool IsTimerStarted => timerStarted;
+
     public void UpdateParams(int newAmount, TimeSpan newCooldown)
     {
         rewardAmount = Math.Max(1, newAmount);
         cooldown = newCooldown;
     }
 
-    // Опция: принудительно сбросить время последнего получения (если нужно)
     public void ResetLastToNow()
     {
         SetLast(nowProvider().ToUniversalTime());
+    }
+
+    //  РњРµС‚РѕРґ РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· HouseManager.Update()
+    public void Update()
+    {
+        if (!timerStarted) return;
+
+        bool ready = CanClaim();
+
+        // СЃРѕР±С‹С‚РёРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ С‚РѕР»СЊРєРѕ РїСЂРё РїРµСЂРІРѕРј РїРµСЂРµС…РѕРґРµ РІ "РіРѕС‚РѕРІ"
+        if (ready && !wasReadyLastFrame)
+        {
+            wasReadyLastFrame = true;
+            OnRewardReady?.Invoke(HouseId);
+        }
+        else if (!ready)
+        {
+            wasReadyLastFrame = false;
+        }
     }
 }

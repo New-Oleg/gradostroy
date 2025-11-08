@@ -15,6 +15,8 @@ MonoBehaviour:
   BuildPref: {fileID: 1131789715227552905, guid: 97bd9546088bf52468baa225aa35ea53, type: 3}
   id: 0
   displayName: q
+  BuildingTime: 0.001
+  BuildingPref: {fileID: 3233909821101449354, guid: b16d82e2082ba8c4fb8067219641c530, type: 3}
   resourceType: 0
   rewardAmount: 5
-  cooldownHours: 0.01
+  cooldownHours: 0.001

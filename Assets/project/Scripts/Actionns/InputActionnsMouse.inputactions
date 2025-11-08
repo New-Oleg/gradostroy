@@ -102,6 +102,17 @@
                 },
                 {
                     "name": "",
+                    "id": "4f494cac-6831-4b9b-8c66-3ba0d8c21cf0",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "KeyDetect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2052ffbe-4020-4bc8-821a-35a3e7cd50c7",
                     "path": "<Mouse>/position",
                     "interactions": "",
