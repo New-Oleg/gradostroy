@@ -104,7 +104,7 @@ public class RewardService
         SetLast(nowProvider().ToUniversalTime());
     }
 
-    //  Метод вызывается из HouseManager.Update()
+    //  Метод вызывается из HouseManager
     public void Update()
     {
         if (!timerStarted) return;
