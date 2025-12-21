@@ -29,11 +29,6 @@ public class HouseManager : MonoBehaviour
     private void Awake()
     {
         rewardReceiver = GetComponent<IGiveReward>();
-        if (rewardReceiver == null)
-            Debug.LogWarning("HouseManager: IGiveReward not found on this GameObject.");
-
-        if (buildingDatabase == null)
-            Debug.LogError("HouseManager: BuildingDatabaseSO is not assigned!");
 
         InitializeServices();
 
@@ -43,7 +38,6 @@ public class HouseManager : MonoBehaviour
     private void InitializeServices()
     {
         services.Clear();
-        if (buildingDatabase == null) return;
 
         buildingDatabase.Refresh();
 
@@ -132,7 +126,7 @@ public class HouseManager : MonoBehaviour
         if (house == null) return;
 
         house.iRedy = true;
-        CanTakeReward?.Invoke(house);
+        CanTakeReward.Invoke(house);
     }
 
     private void FinishConstruction(HouseData house)
