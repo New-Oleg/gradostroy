@@ -12,7 +12,8 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private HouseManager rewardManager; 
     [SerializeField, Tooltip("Data")]
-     private BuildingDatabaseSO buildingDatabase;
+    private BuildingDatabaseSO buildingDatabase;
+
 
     private void OnEnable()
     {
@@ -28,5 +29,6 @@ public class UIController : MonoBehaviour
         b.onClick.AddListener(() => houseData.iRedy = false);
         b.onClick.AddListener(() => Destroy(b.gameObject));
     }
+
 
 }

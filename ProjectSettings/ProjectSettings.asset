@@ -820,17 +820,23 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    LinuxHeadlessSimulation: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    Nintendo Switch: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    PS4: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    PS5: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    Standalone: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    Windows Store Apps: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    XboxOne: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    iPhone: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
-    tvOS: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg
+    Android: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    EmbeddedLinux: DOTWEEN
+    GameCoreScarlett: DOTWEEN
+    GameCoreXboxOne: DOTWEEN
+    LinuxHeadlessSimulation: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    Nintendo Switch: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    PS4: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    PS5: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    QNX: DOTWEEN
+    ReservedCFE: DOTWEEN
+    Standalone: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    VisionOS: DOTWEEN
+    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    Windows Store Apps: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    XboxOne: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    iPhone: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
+    tvOS: PLUGIN_YG_2;YandexGamesPlatform_yg;TMP_YG2;Storage_yg;Localization_yg;Authorization_yg;InterstitialAdv_yg;RewardedAdv_yg;EnvirData_yg;DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
